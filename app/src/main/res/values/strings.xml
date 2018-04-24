@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Encoder Decoder</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="EnterEncryptText">Enter Text To Encrypt Here</string>
+    <string name="SelectAlgo">Select Type of Encryption</string>
+    <string name="AES">AES</string>
+    <string name="Encrypt">Encrypt</string>
+    <string name="EncryptedText">Encrypted Text</string>
+    <string name="Decrypt">Decrypt</string>
+    <string name="DecryptedText">Decrypted Text</string>
+    <string name="EnterDecryptText">Enter Text to Decrypt Here</string>
+    <string name="Encode">Encode</string>
+    <string name="Decode">Decode</string>
+
+    <string-array name="algo_array">
+        <item>md5</item>
+        <item>Base64</item>
+        <item>SHA</item>
+
+    </string-array>
+
+
+    <string-array name="decodealgo_array">
+
+        <item>Base64</item>
+
+    </string-array>
+</resources>
