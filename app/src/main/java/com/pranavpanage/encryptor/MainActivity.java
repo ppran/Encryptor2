@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // Handle Incoming intent
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -59,15 +57,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // the user clicked on colors[which]
-                        if (which==0){ //Endoed mode selected for Shared Text
+                        if (which == 0) { //Encode mode selected for Shared Text
                             encodeMode = true;
-
                             mViewPager.setCurrentItem(0);
                         }
 
                         if(which == 1){ //Decode Mode
                             decodeMode =true;
-
                             mViewPager.setCurrentItem(1);
                         }
 
@@ -86,13 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-
-
-
-
-
 
     }
 

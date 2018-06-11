@@ -28,17 +28,12 @@ import java.io.UnsupportedEncodingException;
 
 public class DecryptFragment extends Fragment{
 
-
     String demode;
-    TextView encryptedText, decreptedText;
-    String inputtext;
-    byte [] decoded;
-    @Nullable
+    TextView encryptedText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.decrypt_fragment,container,false);
-
 
         Spinner spinner2 = (Spinner) view.findViewById(R.id.decspinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -50,40 +45,25 @@ public class DecryptFragment extends Fragment{
 
         Button decryptButton = (Button) view.findViewById(R.id.Decrypt);
 
-
-
         encryptedText = (TextView) view.findViewById(R.id.textToDecrypt) ;
-
-
 
         //Check if there is any shared data
         String SharedData= ((MainActivity) getActivity()).getSharedData();
         if(SharedData!=null){
-           // if(((MainActivity) getActivity()).getDecodeModeStatus())
                 encryptedText.setText(SharedData);
-
         }
-
-
 
         //Decode Function
         decryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                inputtext = encryptedText.getText().toString();
-
-                //Toast.makeText(getActivity().getApplicationContext(), "Selected: " + demode + inputtext, Toast.LENGTH_LONG).show();
-
-
-
-
+                String inputtext = encryptedText.getText().toString();
 
                 switch (demode){
                     case "Base64" :
 
                         String error="";
+                        byte[] decoded = new byte[0];
                         try {
                             decoded = Base64.decode(inputtext.getBytes("UTF-8"), Base64.DEFAULT);
                         } catch (UnsupportedEncodingException e) {
@@ -92,100 +72,24 @@ public class DecryptFragment extends Fragment{
                         }
                         // Toast.makeText(getActivity().getApplicationContext(), "Selected: " + mode + encodedString, Toast.LENGTH_LONG).show();
 
+                        CustomAlertDialogues customAlertDialogues = new CustomAlertDialogues(getContext());
+
                         if (error.contains("bad base-64")){
-
-                            //Display Error Dialogue : No Algorithm Selected
-                            AlertDialog.Builder alertDialogBuilderKey = new AlertDialog.Builder(getContext());
-                            //alertDialogBuilderKey.setMessage(md5).setTitle("Enter Key");
-
-
-                            alertDialogBuilderKey.setMessage("Please Enter Valid Base-64").setTitle("Error");
-
-                            alertDialogBuilderKey.setPositiveButton("Ok",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface arg0, int arg1) {
-
-
-
-                                        }
-                                    });
-
-                            alertDialogBuilderKey.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    //Do SOmething
-                                }
-                            });
-
-                            AlertDialog alertDialogKey = alertDialogBuilderKey.create();
-                            alertDialogKey.show();
+                            // Display Error
+                            customAlertDialogues.displayErrorDialogue("Please Enter Valid Base-64", "Error");
                         }
                         else{
-
-
-                            //Display Dialogue With Result
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                             try {
-                                alertDialogBuilder.setMessage(new String(decoded,"UTF-8")).setTitle("Decoded Text");
+                                customAlertDialogues.displayDecodeAlertDialogue(new String(decoded, "UTF-8"));
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-                            alertDialogBuilder.setPositiveButton("Copy & Close",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface arg0, int arg1) {
-
-                                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                            ClipData clip = null;
-                                            try {
-                                                clip = ClipData.newPlainText("Encrypted Text", new String(decoded,"UTF-8"));
-                                            } catch (UnsupportedEncodingException e) {
-                                                e.printStackTrace();
-                                            }
-                                            clipboard.setPrimaryClip(clip);
-                                            Toast.makeText(getActivity().getApplicationContext(), "Copied To Clipboard" , Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-
-                            alertDialogBuilder.setNegativeButton("Share",new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    Intent sendIntent = new Intent();
-                                    sendIntent.setAction(Intent.ACTION_SEND);
-                                    try {
-                                        sendIntent.putExtra(Intent.EXTRA_TEXT,  new String(decoded,"UTF-8"));
-                                    } catch (UnsupportedEncodingException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    sendIntent.setType("text/plain");
-                                    startActivity(sendIntent);
-                                }
-                            });
-
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
-
                         }
-
-
-
-
-
                         break;
 
-
-
                 }
-
-
             }
         });
-
-
         //Select Mode
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -194,7 +98,6 @@ public class DecryptFragment extends Fragment{
                 demode = parent.getItemAtPosition(position).toString();
                 //Toast.makeText(getActivity().getApplicationContext(), "Selected: " + demode, Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 

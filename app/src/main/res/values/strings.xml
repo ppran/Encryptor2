@@ -5,7 +5,7 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="EnterEncryptText">Enter Text To Encrypt Here</string>
+    <string name="EnterEncryptText">Enter Text To Encode  Here</string>
     <string name="SelectAlgo">Select Type of Encryption</string>
     <string name="AES">AES</string>
     <string name="Encrypt">Encrypt</string>
@@ -15,9 +15,13 @@
     <string name="EnterDecryptText">Enter Text to Decrypt Here</string>
     <string name="Encode">Encode</string>
     <string name="Decode">Decode</string>
+    <string name="loadFile">Load File</string>
+    <string name="select">Select Encoding Algorithm :</string>
+    <string name="loadandCalculate">Load File and Calculate Hash</string>
+    <string name="or">OR</string>
 
     <string-array name="algo_array">
-        <item>md5</item>
+        <item>MD5</item>
         <item>Base64</item>
         <item>SHA</item>
 
